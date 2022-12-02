@@ -1,7 +1,7 @@
 use std::fs;
 
 fn main() {
-    let filename = "input.txt";
+    let filename = "data/input.txt";
     println!(
         "Total score, part 1 is {}",
         strategy_outcome(filename, Part::One)
@@ -32,22 +32,22 @@ fn strategy_outcome(filename: &str, part: Part) -> u32 {
 
     for round in rounds {
         let moves: Vec<&str> = round.split(" ").collect();
-        let opponent_move = decoded_move(moves[0]).unwrap();
+        let opponent_move = decoded_move(moves[0]);
         let your_move = match part {
-            Part::One => decoded_move(moves[1]).unwrap(),
-            Part::Two => your_move(moves[1], &opponent_move).unwrap(),
+            Part::One => decoded_move(moves[1]),
+            Part::Two => your_move(moves[1], &opponent_move),
         };
         score = score + shape_score(&your_move) + result(opponent_move, your_move);
     }
     score
 }
 
-fn decoded_move(encoded_move: &str) -> Result<Move, &'static str> {
+fn decoded_move(encoded_move: &str) -> Move {
     match encoded_move {
-        "A" | "X" => Ok(Move::Rock),
-        "B" | "Y" => Ok(Move::Paper),
-        "C" | "Z" => Ok(Move::Scissors),
-        _ => Err("Invalid input"),
+        "A" | "X" => Move::Rock,
+        "B" | "Y" => Move::Paper,
+        "C" | "Z" => Move::Scissors,
+        _ => panic!("Invalid input"),
     }
 }
 
@@ -87,12 +87,12 @@ fn result(opponent_move: Move, your_move: Move) -> u32 {
     }
 }
 
-fn your_move(result: &str, opponent_move: &Move) -> Result<Move, &'static str> {
+fn your_move(result: &str, opponent_move: &Move) -> Move {
     match result {
-        "Y" => Ok(tying_move(opponent_move)),
-        "X" => Ok(losing_move(opponent_move)),
-        "Z" => Ok(winning_move(opponent_move)),
-        _ => Err("Invalid input"),
+        "Y" => tying_move(opponent_move),
+        "X" => losing_move(opponent_move),
+        "Z" => winning_move(opponent_move),
+        _ => panic!("Invalid input"),
     }
 }
 
@@ -102,15 +102,13 @@ mod tests {
 
     #[test]
     fn test_strategy_outcome_part_1() {
-        let filename = "demo_input.txt";
-        let result = strategy_outcome(filename, Part::One);
+        let result = strategy_outcome("data/demo_input.txt", Part::One);
         assert_eq!(result, 15);
     }
 
     #[test]
     fn test_strategy_outcome_part_2() {
-        let filename = "demo_input.txt";
-        let result = strategy_outcome(filename, Part::Two);
+        let result = strategy_outcome("data/demo_input.txt", Part::Two);
         assert_eq!(result, 12);
     }
 }
