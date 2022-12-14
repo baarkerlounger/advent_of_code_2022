@@ -3,8 +3,7 @@ use polars::prelude::*;
 use std::fs;
 
 fn main() {
-    let file_contents =
-        fs::read_to_string("data/input.txt").expect("Should have been able to read the file");
+    let file_contents = fs::read_to_string("data/input.txt").expect("Valid file");
     println!("Result for part 1 is {}", result_1(&file_contents).unwrap());
     // println!("Result for part 2 is {}", result_2(&file_contents).unwrap());
 }
@@ -12,28 +11,23 @@ fn main() {
 fn result_1(input: &str) -> Result<i32> {
     let lines: Vec<&str> = input.trim().split("\n").collect();
     let tree_map = tree_map(lines);
-    let mut cols = tree_map.get_column_names();
-    cols.reverse();
+    let cols: Vec<&str> = tree_map.get_column_names().into_iter().rev().collect();
 
-    let cummax_from_top = cummax_height_from_n(&tree_map)?;
-    let cummax_from_left = cummax_height_from_n(&tree_map.transpose()?)?;
-    let cummax_from_bottom = cummax_height_from_n(&reverse_df(&tree_map)?)?;
-    let cummax_from_right = cummax_height_from_n(&reverse_df(&tree_map.transpose()?)?)?;
+    let cummax_from_top = tree_map.cummax_height_from_n()?;
+    let cummax_from_left = tree_map.transpose()?.cummax_height_from_n()?;
+    let cummax_from_bottom = tree_map.reverse().cummax_height_from_n()?;
+    let cummax_from_right = tree_map.transpose()?.reverse().cummax_height_from_n()?;
 
     let visible_from_top = trees_visible(&tree_map, cummax_from_top)?;
-    let visible_from_left =
-        trees_visible(&tree_map.transpose().unwrap(), cummax_from_left)?.transpose()?;
-    let visible_from_bottom =
-        reverse_df(&trees_visible(&reverse_df(&tree_map)?, cummax_from_bottom)?)?;
-    let visible_from_right =
-        trees_visible(&reverse_df(&tree_map.transpose()?)?, cummax_from_right)?
-            .transpose()?
-            .select(&cols)?;
+    let visible_from_left = trees_visible(&tree_map.transpose()?, cummax_from_left)?.transpose()?;
+    let visible_from_bottom = trees_visible(&tree_map.reverse(), cummax_from_bottom)?.reverse();
+    let visible_from_right = trees_visible(&tree_map.transpose()?.reverse(), cummax_from_right)?
+        .transpose()?
+        .select(&cols)?;
 
-    let visible_mask = bitor(
-        bitor(visible_from_top, visible_from_left)?,
-        bitor(visible_from_bottom, visible_from_right)?,
-    )?;
+    let visible_mask = visible_from_top
+        .bitor(visible_from_left)?
+        .bitor(visible_from_bottom.bitor(visible_from_right)?)?;
 
     let result = visible_mask
         .sum()
@@ -80,29 +74,28 @@ fn trees_visible(tree_map: &DataFrame, cummax: DataFrame) -> Result<DataFrame> {
         .collect()?)
 }
 
-fn cummax_height_from_n(df: &DataFrame) -> Result<DataFrame> {
-    Ok(df
-        .clone()
-        .lazy()
-        .select([all().cummax(false).shift(1).fill_null(-1)])
-        .collect()?)
+trait ElementWise {
+    fn bitor(&self, df: DataFrame) -> Result<DataFrame>;
+    fn cummax_height_from_n(&self) -> Result<DataFrame>;
 }
 
-fn reverse_df(df: &DataFrame) -> Result<DataFrame> {
-    Ok(df
-        .clone()
-        .lazy()
-        .select([all().reverse().suffix("")])
-        .collect()?)
-}
+impl ElementWise for DataFrame {
+    fn bitor(&self, df_2: DataFrame) -> Result<DataFrame> {
+        Ok(DataFrame::new(
+            self.iter()
+                .zip(df_2.iter())
+                .map(|(series1, series2)| series1.bitor(series2).unwrap())
+                .collect(),
+        )?)
+    }
 
-fn bitor(df_1: DataFrame, df_2: DataFrame) -> Result<DataFrame> {
-    Ok(DataFrame::new(
-        df_1.iter()
-            .zip(df_2.iter())
-            .map(|(series1, series2)| series1.bitor(series2).unwrap())
-            .collect(),
-    )?)
+    fn cummax_height_from_n(&self) -> Result<DataFrame> {
+        Ok(self
+            .clone()
+            .lazy()
+            .select([all().cummax(false).shift(1).fill_null(-1)])
+            .collect()?)
+    }
 }
 
 // fn result_2(input: &str) -> Result<i32> {
@@ -118,8 +111,7 @@ mod tests {
 
     #[test]
     fn test_part_1() {
-        let file_contents = fs::read_to_string("data/demo_input.txt")
-            .expect("Should have been able to read the file");
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
         let res = result_1(&file_contents).unwrap();
         assert_eq!(res, 21);
     }
@@ -128,7 +120,7 @@ mod tests {
     // fn test_part_2() {
     //     let file_contents = fs::read_to_string("data/demo_input.txt")
     //         .expect("Should have been able to read the file");
-    //     let res = result(&file_contents, Part::Two).unwrap();
+    //     let res = result_2(&file_contents).unwrap();
     //     assert_eq!(res, 8);
     // }
 }

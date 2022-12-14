@@ -1,3 +1,11 @@
+```bash
+$ hyperfine --runs 100  -N  target/release/day8
+
+Benchmark 1: target/release/day8
+  Time (mean ± σ):      16.0 ms ±   4.3 ms    [User: 24.5 ms, System: 8.4 ms]
+
+```
+
 --- Day 8: Treetop Tree House ---
 
 The expedition comes across a peculiar patch of tall trees all planted carefully in a grid. The Elves explain that a previous expedition planted these trees as a reforestation effort. Now, they're curious if this would be a good location for a tree house.
