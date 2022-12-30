@@ -2,8 +2,8 @@
 $ hyperfine --runs 100  -N  target/release/day8
 
 Benchmark 1: target/release/day8
-  Time (mean ± σ):      16.0 ms ±   4.3 ms    [User: 24.5 ms, System: 8.4 ms]
-
+  Time (mean ± σ):      42.8 ms ±   6.5 ms    [User: 50.6 ms, System: 7.5 ms]
+  Range (min … max):    38.9 ms …  81.9 ms    100 runs
 ```
 
 --- Day 8: Treetop Tree House ---
