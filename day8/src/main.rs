@@ -1,11 +1,23 @@
 use anyhow::Result;
 use polars::prelude::*;
+use std::env;
 use std::fs;
 
 fn main() {
     let file_contents = fs::read_to_string("data/input.txt").expect("Valid file");
-    println!("Result for part 1 is {}", result_1(&file_contents).unwrap());
-    println!("Result for part 2 is {}", result_2(&file_contents).unwrap());
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        let part: u32 = args[1].parse().unwrap();
+
+        match part {
+            1 => println!("Result for part 1 is {}", result_1(&file_contents).unwrap()),
+            2 => println!("Result for part 2 is {}", result_2(&file_contents).unwrap()),
+            _ => println!("Specify 1 or 2"),
+        }
+    } else {
+        println!("Result for part 1 is {}", result_1(&file_contents).unwrap());
+        println!("Result for part 2 is {}", result_2(&file_contents).unwrap());
+    }
 }
 
 fn result_1(input: &str) -> Result<i32> {
@@ -180,14 +192,12 @@ mod tests {
     #[test]
     fn test_part_1() {
         let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
-        let res = result_1(&file_contents).unwrap();
-        assert_eq!(res, 21);
+        assert_eq!(result_1(&file_contents).unwrap(), 21);
     }
 
     #[test]
     fn test_part_2() {
         let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
-        let res = result_2(&file_contents).unwrap();
-        assert_eq!(res, 8);
+        assert_eq!(result_2(&file_contents).unwrap(), 8);
     }
 }

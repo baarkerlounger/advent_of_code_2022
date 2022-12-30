@@ -1,9 +1,17 @@
 ```bash
-$ hyperfine --runs 100  -N  target/release/day3
+$ hyperfine --runs 100  -N  "target/release/day3 1"
 
-Benchmark 1: target/release/day3
-  Time (mean ± σ):       1.7 ms ±   1.0 ms    [User: 1.3 ms, System: 0.2 ms]
-  Range (min … max):     1.3 ms …   6.5 ms    100 runs
+Benchmark 1: target/release/day3 1
+  Time (mean ± σ):       1.7 ms ±   0.8 ms    [User: 1.1 ms, System: 0.5 ms]
+  Range (min … max):     1.2 ms …   3.9 ms    100 runs
+```
+
+```bash
+$ hyperfine --runs 100  -N  "target/release/day3 2"
+
+Benchmark 1: target/release/day3 2
+  Time (mean ± σ):       1.6 ms ±   1.0 ms    [User: 0.9 ms, System: 0.5 ms]
+  Range (min … max):     1.0 ms …   4.4 ms    100 runs
 ```
 
 --- Day 3: Rucksack Reorganization ---

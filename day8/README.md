@@ -1,9 +1,17 @@
 ```bash
-$ hyperfine --runs 100  -N  target/release/day8
+$ hyperfine --runs 100  -N  "target/release/day8 1"
 
-Benchmark 1: target/release/day8
-  Time (mean ± σ):      42.8 ms ±   6.5 ms    [User: 50.6 ms, System: 7.5 ms]
-  Range (min … max):    38.9 ms …  81.9 ms    100 runs
+Benchmark 1: target/release/day8 1
+  Time (mean ± σ):      16.7 ms ±   4.5 ms    [User: 26.6 ms, System: 7.9 ms]
+  Range (min … max):    12.6 ms …  57.0 ms    100 runs
+```
+
+```bash
+$ hyperfine --runs 100  -N  "target/release/day8 2"
+
+Benchmark 1: target/release/day8 2
+  Time (mean ± σ):      30.1 ms ±   4.4 ms    [User: 28.8 ms, System: 2.6 ms]
+  Range (min … max):    27.2 ms …  70.2 ms    100 runs
 ```
 
 --- Day 8: Treetop Tree House ---

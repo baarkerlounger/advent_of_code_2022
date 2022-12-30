@@ -1,14 +1,21 @@
+use std::env;
 use std::fs;
 
 fn main() {
-    println!(
-        "Result for part 1 is {}",
-        result("data/input.txt", Part::One)
-    );
-    println!(
-        "Result for part 2 is {}",
-        result("data/input.txt", Part::Two)
-    );
+    let file_contents = fs::read_to_string("data/input.txt").expect("Valid file");
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        let part: u32 = args[1].parse().unwrap();
+
+        match part {
+            1 => println!("Result for part 1 is {}", result(&file_contents, Part::One)),
+            2 => println!("Result for part 2 is {}", result(&file_contents, Part::Two)),
+            _ => println!("Specify 1 or 2"),
+        }
+    } else {
+        println!("Result for part 1 is {}", result(&file_contents, Part::One));
+        println!("Result for part 2 is {}", result(&file_contents, Part::Two));
+    }
 }
 
 enum Part {
@@ -16,10 +23,8 @@ enum Part {
     Two,
 }
 
-fn result(filename: &str, part: Part) -> usize {
-    let file_contents =
-        fs::read_to_string(filename).expect("Should have been able to read the file");
-    let collection = file_contents.trim().split("\n");
+fn result(input: &str, part: Part) -> usize {
+    let collection = input.trim().split("\n");
     let mut overlapping_elves = Vec::new();
 
     for (idx, elf_pair) in collection.enumerate() {
@@ -57,13 +62,13 @@ mod tests {
 
     #[test]
     fn test_part_1() {
-        let result = result("data/demo_input.txt", Part::One);
-        assert_eq!(result, 2);
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::One), 2);
     }
 
     #[test]
     fn test_part_2() {
-        let result = result("data/demo_input.txt", Part::Two);
-        assert_eq!(result, 4);
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::Two), 4);
     }
 }

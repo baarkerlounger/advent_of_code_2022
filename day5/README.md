@@ -1,9 +1,17 @@
 ```bash
-$ hyperfine --runs 100  -N  target/release/day5
+$ hyperfine --runs 100  -N  "target/release/day5 1"
 
-Benchmark 1: target/release/day5
-  Time (mean ± σ):       2.8 ms ±   1.5 ms    [User: 2.2 ms, System: 0.5 ms]
+Benchmark 1: target/release/day5 1
+  Time (mean ± σ):       2.4 ms ±   0.6 ms    [User: 1.8 ms, System: 0.5 ms]
+  Range (min … max):     1.7 ms …   6.0 ms    100 runs
+```
 
+```bash
+$ hyperfine --runs 100  -N  "target/release/day5 2"
+
+Benchmark 1: target/release/day5 2
+  Time (mean ± σ):       1.7 ms ±   0.9 ms    [User: 1.4 ms, System: 0.2 ms]
+  Range (min … max):     1.4 ms …   5.5 ms    100 runs
 ```
 
 --- Day 5: Supply Stacks ---

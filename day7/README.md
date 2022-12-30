@@ -1,9 +1,17 @@
 ```bash
-$ hyperfine --runs 100  -N  target/release/day7
+$ hyperfine --runs 100  -N  "target/release/day7 1"
 
-Benchmark 1: target/release/day7
-Time (mean ± σ):       1.5 ms ±   0.9 ms    [User: 1.1 ms, System: 0.3 ms]
-Range (min … max):     0.8 ms …   4.7 ms    100 runs
+Benchmark 1: target/release/day7 1
+  Time (mean ± σ):       1.2 ms ±   0.7 ms    [User: 0.8 ms, System: 0.3 ms]
+  Range (min … max):     0.8 ms …   3.7 ms    100 runs
+```
+
+```bash
+$ hyperfine --runs 100  -N  "target/release/day7 2"
+
+Benchmark 1: target/release/day7 2
+  Time (mean ± σ):       1.6 ms ±   0.8 ms    [User: 1.2 ms, System: 0.2 ms]
+  Range (min … max):     1.1 ms …   4.0 ms    100 runs
 ```
 
 --- Day 7: No Space Left On Device ---

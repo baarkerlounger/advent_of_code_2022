@@ -1,15 +1,21 @@
+use std::env;
 use std::fs;
 
 fn main() {
-    let filename = "data/input.txt";
-    println!(
-        "Total score, part 1 is {}",
-        strategy_outcome(filename, Part::One)
-    );
-    println!(
-        "Total score, part 2 is {}",
-        strategy_outcome(filename, Part::Two)
-    );
+    let file_contents = fs::read_to_string("data/input.txt").expect("Valid file");
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        let part: u32 = args[1].parse().unwrap();
+
+        match part {
+            1 => println!("Result for part 1 is {}", result(&file_contents, Part::One)),
+            2 => println!("Result for part 2 is {}", result(&file_contents, Part::Two)),
+            _ => println!("Specify 1 or 2"),
+        }
+    } else {
+        println!("Result for part 1 is {}", result(&file_contents, Part::One));
+        println!("Result for part 2 is {}", result(&file_contents, Part::Two));
+    }
 }
 
 #[derive(Clone, PartialEq, Eq)]
@@ -24,10 +30,8 @@ enum Part {
     Two,
 }
 
-fn strategy_outcome(filename: &str, part: Part) -> u32 {
-    let file_contents =
-        fs::read_to_string(filename).expect("Should have been able to read the file");
-    let rounds = file_contents.trim().split("\n");
+fn result(input: &str, part: Part) -> u32 {
+    let rounds = input.trim().split("\n");
     let mut score = 0;
 
     for round in rounds {
@@ -37,7 +41,7 @@ fn strategy_outcome(filename: &str, part: Part) -> u32 {
             Part::One => decoded_move(moves[1]),
             Part::Two => your_move(moves[1], &opponent_move),
         };
-        score = score + shape_score(&your_move) + result(opponent_move, your_move);
+        score = score + shape_score(&your_move) + outcome(opponent_move, your_move);
     }
     score
 }
@@ -79,7 +83,7 @@ fn tying_move(opponent_move: &Move) -> Move {
     opponent_move.clone()
 }
 
-fn result(opponent_move: Move, your_move: Move) -> u32 {
+fn outcome(opponent_move: Move, your_move: Move) -> u32 {
     match your_move {
         your_move if your_move == winning_move(&opponent_move) => 6,
         your_move if your_move == losing_move(&opponent_move) => 0,
@@ -102,13 +106,13 @@ mod tests {
 
     #[test]
     fn test_strategy_outcome_part_1() {
-        let result = strategy_outcome("data/demo_input.txt", Part::One);
-        assert_eq!(result, 15);
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::One), 15);
     }
 
     #[test]
     fn test_strategy_outcome_part_2() {
-        let result = strategy_outcome("data/demo_input.txt", Part::Two);
-        assert_eq!(result, 12);
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::Two), 12);
     }
 }

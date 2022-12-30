@@ -1,29 +1,49 @@
 use ordinal::Ordinal;
+use std::env;
 use std::fs;
 
 fn main() {
-    let elf_calories = elf_calories_list("data/input.txt");
-    let total_calories = top_n_total_calories(&elf_calories, 3);
-    for idx in 0..3 {
-        println!(
-            "The elf carrying the {} most calories is elf {} with {} calories",
-            Ordinal(idx + 1),
-            elf_calories[idx].0,
-            elf_calories[idx].1
-        );
-    }
+    let file_contents = fs::read_to_string("data/input.txt").expect("Valid file");
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        let part: u32 = args[1].parse().unwrap();
 
-    println!(
-        "Together they are carrying a total of {} calories",
-        total_calories
-    );
+        match part {
+            1 => println!("Result for part 1 is {}", result(&file_contents, Part::One)),
+            2 => println!("Result for part 2 is {}", result(&file_contents, Part::Two)),
+            _ => println!("Specify 1 or 2"),
+        }
+    } else {
+        println!("Result for part 1 is {}", result(&file_contents, Part::One));
+        println!("Result for part 2 is {}", result(&file_contents, Part::Two));
+    }
 }
 
-fn elf_calories_list(filename: &str) -> Vec<(usize, u32)> {
-    let file_contents =
-        fs::read_to_string(filename).expect("Should have been able to read the file");
+enum Part {
+    One,
+    Two,
+}
 
-    let split_elves = file_contents.split("\n\n");
+fn result(input: &str, part: Part) -> u32 {
+    let elf_calories = elf_calories_list(input);
+    match part {
+        Part::One => {
+            for idx in 0..3 {
+                println!(
+                    "The elf carrying the {} most calories is elf {} with {} calories",
+                    Ordinal(idx + 1),
+                    elf_calories[idx].0,
+                    elf_calories[idx].1
+                );
+            }
+            elf_calories[0].1
+        }
+        Part::Two => top_n_total_calories(&elf_calories, 3),
+    }
+}
+
+fn elf_calories_list(input: &str) -> Vec<(usize, u32)> {
+    let split_elves = input.split("\n\n");
     let mut elf_calories = Vec::new();
 
     for (index, calories) in split_elves.enumerate() {
@@ -49,14 +69,13 @@ mod tests {
 
     #[test]
     fn test_part_1() {
-        let elf_calories = elf_calories_list("data/demo_input.txt");
-        assert_eq!(elf_calories[0], (4, 24000));
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::One), 24000);
     }
 
     #[test]
     fn test_part_2() {
-        let elf_calories = elf_calories_list("data/demo_input.txt");
-        let total_calories = top_n_total_calories(&elf_calories, 3);
-        assert_eq!(total_calories, 45000);
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::Two), 45000);
     }
 }

@@ -1,9 +1,17 @@
 ```bash
-$ hyperfine --runs 100  -N  target/release/day1
+$ hyperfine --runs 100  -N  "target/release/day1 1"
 
-Benchmark 1: target/release/day1
-  Time (mean ± σ):       0.9 ms ±   0.3 ms    [User: 0.6 ms, System: 0.2 ms]
-  Range (min … max):     0.7 ms …   1.7 ms    100 runs
+Benchmark 1: target/release/day1 1
+  Time (mean ± σ):       1.2 ms ±   0.7 ms    [User: 0.8 ms, System: 0.3 ms]
+  Range (min … max):     0.7 ms …   3.4 ms    100 runs
+```
+
+```bash
+$ hyperfine --runs 100  -N  "target/release/day1 2"
+
+Benchmark 1: target/release/day1 2
+  Time (mean ± σ):       1.2 ms ±   0.7 ms    [User: 0.7 ms, System: 0.3 ms]
+  Range (min … max):     0.6 ms …   3.1 ms    100 runs
 ```
 
 # Puzzle

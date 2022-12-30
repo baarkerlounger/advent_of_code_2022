@@ -1,8 +1,17 @@
 ```bash
-Benchmark 1: target/release/day6
+$ hyperfine --runs 100  -N  "target/release/day6 1"
 
-Time (mean ± σ):       2.8 ms ±   1.4 ms    [User: 2.4 ms, System: 0.3 ms]
-Range (min … max):     2.1 ms …   9.6 ms    100 runs
+Benchmark 1: target/release/day6 1
+  Time (mean ± σ):       0.9 ms ±   0.4 ms    [User: 0.6 ms, System: 0.1 ms]
+  Range (min … max):     0.7 ms …   3.5 ms    100 runs
+```
+
+```bash
+$ hyperfine --runs 100  -N  "target/release/day6 2"
+
+Benchmark 1: target/release/day6 2
+  Time (mean ± σ):       1.7 ms ±   0.1 ms    [User: 1.4 ms, System: 0.1 ms]
+  Range (min … max):     1.5 ms …   2.2 ms    100 runs
 ```
 
 --- Day 6: Tuning Trouble ---

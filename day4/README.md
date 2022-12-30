@@ -1,8 +1,17 @@
 ```bash
-$ hyperfine --runs 100  -N  target/release/day4
+$ hyperfine --runs 100  -N  "target/release/day4 1"
 
-Benchmark 1: target/release/day4
-  Time (mean ± σ):       1.8 ms ±   0.6 ms    [User: 1.4 ms, System: 0.2 ms]
+Benchmark 1: target/release/day4 1
+  Time (mean ± σ):       1.6 ms ±   0.9 ms    [User: 1.0 ms, System: 0.5 ms]
+  Range (min … max):     1.1 ms …   4.5 ms    100 runs
+```
+
+```bash
+$ hyperfine --runs 100  -N  "target/release/day4 2"
+
+Benchmark 1: target/release/day4 2
+  Time (mean ± σ):       1.4 ms ±   0.8 ms    [User: 1.0 ms, System: 0.3 ms]
+  Range (min … max):     0.9 ms …   3.9 ms    100 runs
 ```
 
 

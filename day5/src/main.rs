@@ -1,15 +1,22 @@
 use regex::Regex;
+use std::env;
 use std::fs;
 
 fn main() {
-    println!(
-        "Result for part 1 is {}",
-        result("data/input.txt", Part::One)
-    );
-    println!(
-        "Result for part 2 is {}",
-        result("data/input.txt", Part::Two)
-    );
+    let file_contents = fs::read_to_string("data/input.txt").expect("Valid file");
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        let part: u32 = args[1].parse().unwrap();
+
+        match part {
+            1 => println!("Result for part 1 is {}", result(&file_contents, Part::One)),
+            2 => println!("Result for part 2 is {}", result(&file_contents, Part::Two)),
+            _ => println!("Specify 1 or 2"),
+        }
+    } else {
+        println!("Result for part 1 is {}", result(&file_contents, Part::One));
+        println!("Result for part 2 is {}", result(&file_contents, Part::Two));
+    }
 }
 
 enum Part {
@@ -17,10 +24,8 @@ enum Part {
     Two,
 }
 
-fn result(filename: &str, part: Part) -> String {
-    let file_contents =
-        fs::read_to_string(filename).expect("Should have been able to read the file");
-    let lines = file_contents.split("\n");
+fn result(input: &str, part: Part) -> String {
+    let lines = input.split("\n");
     let separator = Regex::new(r"([a-zA-Z\s])").expect("Invalid regex");
     let mut crates: Vec<Vec<char>> = Vec::new();
     let mut line_no = 0;
@@ -88,13 +93,13 @@ mod tests {
 
     #[test]
     fn test_part_1() {
-        let result = result("data/demo_input.txt", Part::One);
-        assert_eq!(result, "CMZ");
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::One), "CMZ");
     }
 
     #[test]
     fn test_part_2() {
-        let result = result("data/demo_input.txt", Part::Two);
-        assert_eq!(result, "MCD");
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result(&file_contents, Part::Two), "MCD");
     }
 }

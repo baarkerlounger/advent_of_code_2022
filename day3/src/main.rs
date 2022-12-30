@@ -1,15 +1,26 @@
 use std::collections::HashSet;
+use std::env;
 use std::fs;
 
 fn main() {
-    println!("Result for part 1 is {}", result_1("data/input.txt"));
-    println!("Result for part 2 is {}", result_2("data/input.txt"));
+    let file_contents = fs::read_to_string("data/input.txt").expect("Valid file");
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        let part: u32 = args[1].parse().unwrap();
+
+        match part {
+            1 => println!("Result for part 1 is {}", result_1(&file_contents)),
+            2 => println!("Result for part 2 is {}", result_2(&file_contents)),
+            _ => println!("Specify 1 or 2"),
+        }
+    } else {
+        println!("Result for part 1 is {}", result_1(&file_contents));
+        println!("Result for part 2 is {}", result_2(&file_contents));
+    }
 }
 
-fn result_1(filename: &str) -> u32 {
-    let file_contents =
-        fs::read_to_string(filename).expect("Should have been able to read the file");
-    let rucksacks = file_contents.trim().split("\n");
+fn result_1(input: &str) -> u32 {
+    let rucksacks = input.trim().split("\n");
     let mut sum = 0;
 
     for r in rucksacks {
@@ -27,10 +38,8 @@ fn result_1(filename: &str) -> u32 {
     sum
 }
 
-fn result_2(filename: &str) -> u32 {
-    let file_contents =
-        fs::read_to_string(filename).expect("Should have been able to read the file");
-    let mut rucksacks: Vec<&str> = file_contents.trim().split("\n").collect();
+fn result_2(input: &str) -> u32 {
+    let mut rucksacks: Vec<&str> = input.trim().split("\n").collect();
     let mut sum = 0;
 
     while rucksacks.len() > 0 {
@@ -60,13 +69,13 @@ mod tests {
 
     #[test]
     fn test_part_1() {
-        let result = result_1("data/demo_input.txt");
-        assert_eq!(result, 157);
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result_1(&file_contents), 157);
     }
 
     #[test]
     fn test_part_2() {
-        let result = result_2("data/demo_input.txt");
-        assert_eq!(result, 70);
+        let file_contents = fs::read_to_string("data/demo_input.txt").expect("valid file");
+        assert_eq!(result_2(&file_contents), 70);
     }
 }
