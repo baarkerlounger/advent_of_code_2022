@@ -15,6 +15,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 6](https://adventofcode.com/2022/day/6) | ⭐ | ⭐ |
 | [Day 7](https://adventofcode.com/2022/day/7) | ⭐ | ⭐ |
 | [Day 8](https://adventofcode.com/2022/day/8) | ⭐ | ⭐ |
+| [Day 9](https://adventofcode.com/2022/day/8) | ⭐ | ⭐ |
 <!--- advent_readme_stars table --->
 
 <!--- benchmarking table --->
@@ -29,9 +30,10 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 5](./day5/src/main.rs) | `2.4ms` | `1.7ms` | |
 | [Day 6](./day6/src/main.rs) | `0.9ms` | `1.7ms` | HashSets |
 | [Day 7](./day7/src/main.rs) | `1.2ms` | `1.6ms` | Tree using [id_tree](https://docs.rs/id_tree/latest/id_tree/) |
-| [Day 8](./day8/src/main.rs) | `16.7ms` | `30.1s` |Dataframes using [Polars](https://www.pola.rs/) |
+| [Day 8](./day8/src/main.rs) | `16.7ms` | `30.1ms` | Dataframes using [Polars](https://www.pola.rs/) |
+| [Day 9](./day9/src/main.rs) | `2.1ms` | `1.3ms` | HashSets |
 
-**Total: 67.9ms**
+**Total: 71.3ms**
 <!--- benchmarking table --->
 
 Benchmarks run using:
