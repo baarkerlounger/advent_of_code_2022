@@ -1,3 +1,19 @@
+```bash
+$ hyperfine --runs 100  -N  "target/release/day10 1"
+
+Benchmark 1: target/release/day10 1
+  Time (mean ± σ):       0.9 ms ±   0.6 ms    [User: 0.6 ms, System: 0.1 ms]
+  Range (min … max):     0.6 ms …   2.8 ms    100 runs
+```
+
+```bash
+$ hyperfine --runs 100  -N  "target/release/day10 2"
+
+Benchmark 1: target/release/day10 2
+  Time (mean ± σ):       1.1 ms ±   0.8 ms    [User: 0.7 ms, System: 0.3 ms]
+  Range (min … max):     0.5 ms …   3.4 ms    100 runs
+```
+
 --- Day 10: Cathode-Ray Tube ---
 
 You avoid the ropes, plunge into the river, and swim to shore.
@@ -330,4 +346,3 @@ Allowing the program to run to completion causes the CRT to produce the followin
 ````
 
 Render the image given by your program. What eight capital letters appear on your CRT?
-
