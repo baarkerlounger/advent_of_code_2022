@@ -17,7 +17,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 8](https://adventofcode.com/2022/day/8) | ⭐ | ⭐ |
 | [Day 9](https://adventofcode.com/2022/day/9) | ⭐ | ⭐ |
 | [Day 10](https://adventofcode.com/2022/day/10) | ⭐ | ⭐ |
-| [Day 10](https://adventofcode.com/2022/day/11) | ⭐ | ⭐ |
+| [Day 11](https://adventofcode.com/2022/day/11) | ⭐ | ⭐ |
 <!--- advent_readme_stars table --->
 
 <!--- benchmarking table --->
@@ -34,8 +34,8 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 7](./day7/src/main.rs) | `1.2ms` | `1.6ms` | Tree using [id_tree](https://docs.rs/id_tree/latest/id_tree/) |
 | [Day 8](./day8/src/main.rs) | `16.7ms` | `30.1ms` | Dataframes using [Polars](https://www.pola.rs/) |
 | [Day 9](./day9/src/main.rs) | `2.1ms` | `1.3ms` | HashSets |
-| [Day 10](./day10/src/main.rs) | `0.9ms` | `1.1ms` |  |
-| [Day 10](./day11/src/main.rs) | `2.0ms` | `34.1ms` | HashMap, if x is divisible by y, x modulo least common multiple of a set including y is also divisble by y |
+| [Day 10](./day10/src/main.rs) | `0.9ms` | `1.1ms` | ASCII art as Array chunks |
+| [Day 11](./day11/src/main.rs) | `2.0ms` | `34.1ms` | HashMap, if x is divisible by y, x modulo the [LCM](https://en.wikipedia.org/wiki/Least_common_multiple) of a set including y is also divisble by y |
 
 **Total: 109.4ms**
 <!--- benchmarking table --->
