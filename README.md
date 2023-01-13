@@ -28,7 +28,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 2](./day2/src/main.rs) | `1.3ms` | `1.6ms` | |
 | [Day 3](./day3/src/main.rs) | `1.7ms` | `1.6ms` | |
 | [Day 4](./day4/src/main.rs) | `1.6ms` | `1.4ms` | |
-| [Day 5](./day5/src/main.rs) | `2.4ms` | `1.7ms` | |
+| [Day 5](./day5/src/main.rs) | `2.4ms` | `1.7ms` | Regex |
 | [Day 6](./day6/src/main.rs) | `0.9ms` | `1.7ms` | HashSets |
 | [Day 7](./day7/src/main.rs) | `1.2ms` | `1.6ms` | Tree using [id_tree](https://docs.rs/id_tree/latest/id_tree/) |
 | [Day 8](./day8/src/main.rs) | `16.7ms` | `30.1ms` | Dataframes using [Polars](https://www.pola.rs/) |
