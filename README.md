@@ -18,6 +18,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 9](https://adventofcode.com/2022/day/9) | ⭐ | ⭐ |
 | [Day 10](https://adventofcode.com/2022/day/10) | ⭐ | ⭐ |
 | [Day 11](https://adventofcode.com/2022/day/11) | ⭐ | ⭐ |
+| [Day 12](https://adventofcode.com/2022/day/12) |  |  |
 <!--- advent_readme_stars table --->
 
 <!--- benchmarking table --->
@@ -36,6 +37,7 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 9](./day9/src/main.rs) | `2.1ms` | `1.3ms` | HashSets |
 | [Day 10](./day10/src/main.rs) | `0.9ms` | `1.1ms` | ASCII art as Array chunks |
 | [Day 11](./day11/src/main.rs) | `2.0ms` | `34.1ms` | HashMap, if x is divisible by y, x modulo the [LCM](https://en.wikipedia.org/wiki/Least_common_multiple) of a set including y is also divisble by y |
+| [Day 12](./day12/src/main.rs) |  |  | |
 
 **Total: 109.4ms**
 <!--- benchmarking table --->
